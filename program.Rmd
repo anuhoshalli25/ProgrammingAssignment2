@@ -1,0 +1,59 @@
+---
+title: "program"
+author: "Anushree Hosahalli Nagarajarao"
+date: "2024-08-09"
+output: html_document
+---
+
+
+```{r}
+# Create a matrix
+mat <- matrix(c(1, 2, 3, 4), 2, 2)
+
+# Use makeCacheMatrix to create a special "matrix" object
+cacheMat <- makeCacheMatrix(mat)
+
+# Compute the inverse using cacheSolve
+invMat <- cacheSolve(cacheMat)
+print(invMat)
+
+# Call cacheSolve again to see if it retrieves the cached inverse
+cachedInvMat <- cacheSolve(cacheMat)
+print(cachedInvMat)
+
+```
+```{r}
+mat2 <- matrix(c(2, 3, 2, 5), 2, 2)
+cacheMat2 <- makeCacheMatrix(mat2)
+invMat2 <- cacheSolve(cacheMat2)
+print(invMat2)
+
+# Call again to check the cache
+cachedInvMat2 <- cacheSolve(cacheMat2)
+print(cachedInvMat2)
+
+```
+```{r}
+identityMat <- diag(2)
+cacheIdentity <- makeCacheMatrix(identityMat)
+invIdentity <- cacheSolve(cacheIdentity)
+print(invIdentity)
+
+# Since it's an identity matrix, the inverse should be the same
+cachedInvIdentity <- cacheSolve(cacheIdentity)
+print(cachedInvIdentity)
+
+```
+```{r}
+singularMat <- matrix(c(1, 2, 2, 4), 2, 2)
+cacheSingular <- makeCacheMatrix(singularMat)
+
+tryCatch({
+    invSingular <- cacheSolve(cacheSingular)
+    print(invSingular)
+}, error = function(e) {
+    print("Error: Matrix is not invertible.")
+})
+
+```
+
